@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Σύγκριση Προσφορών Αναβάθμισης Ανελκυστήρα / Elevator Offer Comparison</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body { font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .bg-primary-blue { background-color: #007FFF; }
+        .text-primary-blue { color: #007FFF; }
+        .border-primary-blue { border-color: #007FFF; }
+        .bg-secondary-orange { background-color: #FF8C00; }
+        .text-secondary-orange { color: #FF8C00; }
+        .bg-accent-green { background-color: #32CD32; }
+        .text-accent-green { color: #32CD32; }
+        .bg-neutral-page { background-color: #f4f7f6; }
+        .text-neutral-dark-gray { color: #333333; }
+        .card {
+            background-color: #ffffff;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        h1, h2 {
+             font-weight: 700;
+        }
+        h1 {
+            font-size: 2rem; /* Adjusted for bilingual */
+            line-height: 1.2;
+            margin-bottom: 0.5rem;
+        }
+        h2 {
+            font-size: 1.625rem; /* Adjusted for bilingual */
+            line-height: 1.3;
+            margin-bottom: 1.5rem;
+        }
+        .lang-en {
+            display: block;
+            font-size: 0.8em; /* Slightly smaller for EN part */
+            font-weight: normal;
+            color: #4A5568; /* gray-700 */
+            margin-top: 0.25rem;
+        }
+        th .lang-en, td .lang-en {
+             font-size: 0.85em;
+        }
+        @media (min-width: 768px) {
+            h1 {
+                font-size: 2.5rem; /* md:text-4xl, adjusted */
+                line-height: 1.2;
+            }
+             h2 {
+                font-size: 2rem; /* md:text-3xl, adjusted */
+            }
+        }
+    </style>
+</head>
+<body class="bg-neutral-page text-neutral-dark-gray antialiased">
+    <div class="container mx-auto p-4 md:p-8">
+        <header class="text-center mb-12">
+            <h1 class="text-primary-blue">Σύγκριση Προσφορών Αναβάθμισης Ανελκυστήρα
+                <span class="lang-en">Elevator Upgrade Offer Comparison</span>
+            </h1>
+            <p class="text-lg text-gray-700 mt-2">Ανάλυση για την πολυκατοικία Φιλοστράτου 22, Αθήνα
+                <span class="lang-en">Analysis for the Filostratou 22 Building, Athens</span>
+            </p>
+        </header>
+
+        <section id="cost-comparison" class="card">
+            <h2 class="text-secondary-orange text-center">Συνολικό Κόστος Προσφορών (με ΦΠΑ 24%)
+                <span class="lang-en">Total Offer Cost (incl. 24% VAT)</span>
+            </h2>
+            <p class="text-center text-gray-600 mb-8">
+                Αυτή η σύγκριση παρουσιάζει τη συνολική οικονομική αξία κάθε προσφοράς, συμπεριλαμβανομένου του ΦΠΑ. Λάβετε υπόψη τυχόν σημειώσεις για μειώσεις κόστους υπό προϋποθέσεις.
+                <span class="lang-en">This comparison shows the total financial value of each offer, including VAT. Note any remarks regarding potential cost reductions.</span>
+            </p>
+            <div class="chart-container h-80 md:h-96 max-w-2xl">
+                <canvas id="totalCostChart"></canvas>
+            </div>
+            <p class="mt-6 text-sm text-gray-500 text-center">
+                *Η προσφορά της S. AIVAZOGLOU ELEVATORS μπορεί να μειωθεί κατά €310 (250€ + ΦΠΑ) εάν υπάρχει ήδη τεχνικός φάκελος.
+                <span class="lang-en">*S. AIVAZOGLOU ELEVATORS' offer can be reduced by €310 (€250 + VAT) if a technical file already exists.</span>
+            </p>
+        </section>
+
+        <section id="features-comparison" class="card">
+            <h2 class="text-secondary-orange text-center">Κύρια Τεχνικά Χαρακτηριστικά & Όροι
+                <span class="lang-en">Key Technical Features & Terms</span>
+            </h2>
+            <p class="text-center text-gray-600 mb-8">
+                Σύγκριση βασικών τεχνικών στοιχείων όπως ο τύπος του πίνακα ελέγχου, η εγγύηση, οι όροι πληρωμής και ο χρόνος παράδοσης.
+                <span class="lang-en">Comparison of key technical elements such as control panel type, warranty, payment terms, and delivery time.</span>
+            </p>
+            <div class="overflow-x-auto">
+                <table class="min-w-full bg-white rounded-lg">
+                    <thead class="bg-primary-blue text-white">
+                        <tr>
+                            <th class="text-left py-3 px-4 uppercase font-semibold text-sm">Χαρακτηριστικό <span class="lang-en">Feature</span></th>
+                            <th class="text-left py-3 px-4 uppercase font-semibold text-sm">S. AIVAZOGLOU</th>
+                            <th class="text-left py-3 px-4 uppercase font-semibold text-sm">ANODIKI TECHNIKI</th>
+                            <th class="text-left py-3 px-4 uppercase font-semibold text-sm">OrangeLift</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-gray-700" id="featuresTableBody">
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section id="optional-works-comparison" class="card">
+            <h2 class="text-secondary-orange text-center">Σύγκριση Κόστους Προαιρετικών Εργασιών (με ΦΠΑ 24%)
+                <span class="lang-en">Optional Works Cost Comparison (incl. 24% VAT)</span>
+            </h2>
+             <p class="text-center text-gray-600 mb-8">
+                Κοστολόγηση για συνήθεις προαιρετικές αναβαθμίσεις όπως ο αυτόματος απεγκλωβισμός και η νέα καμπίνα/αισθητική ανακαίνιση.
+                <span class="lang-en">Costing for common optional upgrades such as automatic rescue device and new cabin/aesthetic renovation.</span>
+            </p>
+            <div class="chart-container h-96 md:h-[500px] max-w-3xl">
+                <canvas id="optionalCostsChart"></canvas>
+            </div>
+             <p class="mt-6 text-sm text-gray-500 text-center">
+                Σημείωση: Τα δεδομένα απεικονίζονται όπου οι τιμές είναι ρητά διαθέσιμες. Η "Αισθητική Ανακαίνιση" της OrangeLift περιλαμβάνει νέα καμπίνα.
+                <span class="lang-en">Note: Data is shown where prices are explicitly available. OrangeLift's "Aesthetic Renovation" includes a new cabin.</span>
+            </p>
+        </section>
+
+        <section id="maintenance-cost-comparison" class="card">
+            <h2 class="text-secondary-orange text-center">Μηνιαίο Κόστος Συντήρησης (με ΦΠΑ)
+                <span class="lang-en">Monthly Maintenance Cost (incl. VAT)</span>
+            </h2>
+             <p class="text-center text-gray-600 mb-8">
+                Σύγκριση του μηνιαίου κόστους για την τακτική συντήρηση του ανελκυστήρα, όπως αναφέρεται από κάθε εταιρεία.
+                <span class="lang-en">Comparison of the monthly cost for regular elevator maintenance, as stated by each company.</span>
+            </p>
+            <div class="chart-container h-72 md:h-80 max-w-xl">
+                <canvas id="maintenanceCostChart"></canvas>
+            </div>
+            <p class="mt-6 text-sm text-gray-500 text-center">
+                Η OrangeLift δεν αναφέρει σαφές κόστος συντήρησης στην παρεχόμενη περίληψη της κύριας προσφοράς.
+                <span class="lang-en">OrangeLift does not specify a clear maintenance cost in the provided summary of its main offer.</span>
+            </p>
+        </section>
+
+        <section id="company-details" class="mb-4">
+            <h2 class="text-secondary-orange text-center mb-8">Επισκόπηση Κύριων Παροχών ανά Εταιρεία
+                <span class="lang-en">Overview of Key Provisions per Company</span>
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="companyDetailsContainer">
+            </div>
+        </section>
+
+        <footer class="text-center mt-12 py-6 border-t border-gray-300">
+            <p class="text-gray-600 text-sm">
+                Infographic Δημιουργήθηκε στις <span id="timestamp_el"></span>. <span class="lang-en">Infographic Created on <span id="timestamp_en"></span>.</span><br>
+                Οι πληροφορίες βασίζονται στις παρεχόμενες προσφορές για την πολυκατοικία Φιλοστράτου 22.
+                <span class="lang-en">Information is based on the provided offers for the Filostratou 22 building.</span><br>
+                Για πλήρεις λεπτομέρειες, ανατρέξτε στα πρωτότυπα έγγραφα των προσφορών.
+                <span class="lang-en">For full details, please refer to the original offer documents.</span>
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        const commonTooltipOptions = (lang = 'el') => ({
+            callbacks: {
+                title: function(tooltipItems) {
+                    const item = tooltipItems[0];
+                    let label = item.chart.data.labels[item.dataIndex];
+                    let displayLabel = '';
+                    if (Array.isArray(label)) {
+                        displayLabel = label.map(l => l.split(' / ')[lang === 'el' ? 0 : 1].trim()).join(' ');
+                    } else {
+                        displayLabel = (label.split(' / ')[lang === 'el' ? 0 : 1] || label.split(' / ')[0]).trim();
+                    }
+                    return displayLabel;
+                },
+                label: function(context) {
+                    let datasetLabel = context.dataset.label || '';
+                    let displayDatasetLabel = (datasetLabel.split(' / ')[lang === 'el' ? 0 : 1] || datasetLabel.split(' / ')[0]).trim();
+
+                    if (displayDatasetLabel) {
+                        displayDatasetLabel += ': ';
+                    }
+                    if (context.parsed.y !== null) {
+                        displayDatasetLabel += new Intl.NumberFormat(lang === 'el' ? 'el-GR' : 'en-US', { style: 'currency', currency: 'EUR' }).format(context.parsed.y);
+                    }
+                    return displayDatasetLabel;
+                }
+            }
+        });
+
+        const processLabel = (label, maxLength = 16) => {
+            if (typeof label !== 'string' || label.length <= maxLength) {
+                return label;
+            }
+            const words = label.split(' ');
+            const lines = [];
+            let currentLine = '';
+            for (const word of words) {
+                if ((currentLine + word).length > maxLength && currentLine.length > 0) {
+                    lines.push(currentLine.trim());
+                    currentLine = word + ' ';
+                } else {
+                    currentLine += word + ' ';
+                }
+            }
+            if (currentLine.trim().length > 0) {
+                lines.push(currentLine.trim());
+            }
+            return lines.length > 0 ? lines : [label]; // Always return array for consistency
+        };
+        
+        const processBilingualLabel = (label_el, label_en, maxLength = 16) => {
+            const el_processed_arr = Array.isArray(label_el) ? label_el : processLabel(label_el, maxLength);
+            const en_processed_arr = Array.isArray(label_en) ? label_en : processLabel(label_en, maxLength);
+
+            const maxLines = Math.max(el_processed_arr.length, en_processed_arr.length);
+            const bilingualLines = [];
+            for (let i = 0; i < maxLines; i++) {
+                const el_line = el_processed_arr[i] || '';
+                const en_line = en_processed_arr[i] || '';
+                bilingualLines.push(`${el_line.trim()} / ${en_line.trim()}`);
+            }
+            return bilingualLines;
+        };
+
+
+        const offerData = {
+            aivazoglou: {
+                name_el: "S. ΑΪΒΑΖΟΓΛΟΥ",
+                name_en: "S. AIVAZOGLOU",
+                totalCost: 7316,
+                totalCostNote: 7006,
+                panel_el: "IKAROS με Inverter",
+                panel_en: "IKAROS with Inverter",
+                warranty_el: "5 έτη (υπό όρους)",
+                warranty_en: "5 years (conditional)",
+                payment_el: "50% προκ/λή, 50% σε 4 δόσεις",
+                payment_en: "50% adv, 50% in 4 installments",
+                delivery_el: "Δεν καθορίζεται",
+                delivery_en: "Not specified",
+                optionalRescue: 471.20,
+                optionalCabin: 2232.00,
+                optionalAutoDoor: 930.00,
+                maintenance: 43.00,
+                keyInclusions_el: [
+                    "Πλήρης πιστοποίηση & τεχνικός φάκελος",
+                    "Νέος πίνακας IKAROS με inverter",
+                    "Αντικατάσταση συρματόσχοινων, κλειδαριών, ρυθμιστή ταχύτητας",
+                    "Επισκευή τροχαλίας μηχανής",
+                    "Πολλές εργασίες ασφαλείας (προσκρουστήρες, ποδιά, φώτα)"
+                ],
+                keyInclusions_en: [
+                    "Full certification & technical file",
+                    "New IKAROS panel with inverter",
+                    "Replacement of ropes, locks, speed governor",
+                    "Machine pulley repair",
+                    "Multiple safety works (buffers, apron, lights)"
+                ]
+            },
+            anodiki: {
+                name_el: "ΑΝΟΔΙΚΗ ΤΕΧΝΙΚΗ",
+                name_en: "ANODIKI TECHNIKI",
+                totalCost: 4898,
+                panel_el: "VASSLER (Inverter προαιρετικά +€744)",
+                panel_en: "VASSLER (Inverter optional +€744)",
+                warranty_el: "5 έτη (υλικά)",
+                warranty_en: "5 years (materials)",
+                payment_el: "50% υπογραφή, υπόλοιπο με ολοκλήρωση",
+                payment_en: "50% on signing, rest on completion",
+                delivery_el: "3-5 εργάσιμες",
+                delivery_en: "3-5 working days",
+                optionalRescue: 744.00,
+                optionalCabin: 1488.00,
+                optionalAutoDoor: null,
+                maintenance: 43.40,
+                keyInclusions_el: [
+                    "Πιστοποίηση & κατάθεση",
+                    "Νέος πίνακας VASSLER",
+                    "Αντικατάσταση ρυθμιστή ταχύτητας, κλειδαριών",
+                    "Εγκατάσταση φωτισμού, σημάνσεων",
+                    "Καθαρισμός/ρύθμιση αρπάγης"
+                ],
+                 keyInclusions_en: [
+                    "Certification & submission",
+                    "New VASSLER panel",
+                    "Replacement of speed governor, locks",
+                    "Installation of lighting, markings",
+                    "Safety gear cleaning/adjustment"
+                ]
+            },
+            orangelift: {
+                name_el: "OrangeLift",
+                name_en: "OrangeLift",
+                totalCost: 5790,
+                panel_el: "SMS Italy με Inverter (V.V.V.F.)",
+                panel_en: "SMS Italy with Inverter (V.V.V.F.)",
+                warranty_el: "5 έτη (υπό όρους)",
+                warranty_en: "5 years (conditional)",
+                payment_el: "50% προκ/λή, 50% σε 6 δόσεις",
+                payment_en: "50% adv, 50% in 6 installments",
+                delivery_el: "30-40 εργάσιμες",
+                delivery_en: "30-40 working days",
+                optionalRescue: 558.00,
+                optionalCabin: 2480.00, 
+                optionalAutoDoor: null, 
+                maintenance: null, 
+                keyInclusions_el: [
+                    "Πλήρης αναβάθμιση & τεχνικός φάκελος",
+                    "Νέος πίνακας SMS Italy με inverter",
+                    "Αντικατάσταση καλωδιώσεων, κλειδαριών, ρυθμιστή ταχύτητας",
+                    "Εργασίες σε μηχανισμό, φρεάτιο, θάλαμο, τροχαλιοστάσιο",
+                    "Επισκευή φρένου"
+                ],
+                keyInclusions_en: [
+                    "Full upgrade & technical file",
+                    "New SMS Italy panel with inverter",
+                    "Replacement of wiring, locks, speed governor",
+                    "Works on mechanism, shaft, cabin, pulley room",
+                    "Brake repair"
+                ]
+            }
+        };
+
+        const companyChartLabels = [
+            processBilingualLabel(offerData.aivazoglou.name_el, offerData.aivazoglou.name_en, 20),
+            processBilingualLabel(offerData.anodiki.name_el, offerData.anodiki.name_en, 20),
+            processBilingualLabel(offerData.orangelift.name_el, offerData.orangelift.name_en, 20)
+        ];
+        const companyColors = ['#007FFF', '#FF8C00', '#32CD32'];
+
+        new Chart(document.getElementById('totalCostChart'), {
+            type: 'bar',
+            data: {
+                labels: companyChartLabels,
+                datasets: [{
+                    label: 'Συνολικό Κόστος / Total Cost (€)',
+                    data: [offerData.aivazoglou.totalCost, offerData.anodiki.totalCost, offerData.orangelift.totalCost],
+                    backgroundColor: companyColors,
+                    borderColor: companyColors.map(color => color.replace(')', ', 0.7)').replace('rgb', 'rgba')),
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: { y: { beginAtZero: true, ticks: { callback: value => new Intl.NumberFormat('el-GR', { style: 'currency', currency: 'EUR' }).format(value) } } },
+                plugins: { legend: { display: false }, tooltip: commonTooltipOptions('el') }
+            }
+        });
+
+        const featuresTableBody = document.getElementById('featuresTableBody');
+        const features = [
+            { label_el: 'Πίνακας Ελέγχου', label_en: 'Control Panel', prop_el: 'panel_el', prop_en: 'panel_en' },
+            { label_el: 'Εγγύηση', label_en: 'Warranty', prop_el: 'warranty_el', prop_en: 'warranty_en' },
+            { label_el: 'Όροι Πληρωμής', label_en: 'Payment Terms', prop_el: 'payment_el', prop_en: 'payment_en' },
+            { label_el: 'Χρόνος Παράδοσης', label_en: 'Delivery Time', prop_el: 'delivery_el', prop_en: 'delivery_en' }
+        ];
+        features.forEach(feature => {
+            let rowHtml = `<tr class="border-b">
+                            <td class="py-3 px-4 font-semibold">${feature.label_el}<span class="lang-en">${feature.label_en}</span></td>
+                            <td class="py-3 px-4">${offerData.aivazoglou[feature.prop_el] || 'N/A'}<span class="lang-en">${offerData.aivazoglou[feature.prop_en] || 'N/A'}</span></td>
+                            <td class="py-3 px-4">${offerData.anodiki[feature.prop_el] || 'N/A'}<span class="lang-en">${offerData.anodiki[feature.prop_en] || 'N/A'}</span></td>
+                            <td class="py-3 px-4">${offerData.orangelift[feature.prop_el] || 'N/A'}<span class="lang-en">${offerData.orangelift[feature.prop_en] || 'N/A'}</span></td>
+                           </tr>`;
+            featuresTableBody.innerHTML += rowHtml;
+        });
+
+        const optionalLabelsBilingual = [
+            processBilingualLabel('Αυτόματος Απεγκλωβισμός', 'Automatic Rescue', 25),
+            processBilingualLabel('Νέα Καμπίνα / Αισθητική Ανακαίνιση', 'New Cabin / Aesthetic Renovation', 25)
+        ];
+        new Chart(document.getElementById('optionalCostsChart'), {
+            type: 'bar',
+            data: {
+                labels: optionalLabelsBilingual,
+                datasets: [
+                    {
+                        label: `${offerData.aivazoglou.name_el} / ${offerData.aivazoglou.name_en}`,
+                        data: [offerData.aivazoglou.optionalRescue, offerData.aivazoglou.optionalCabin],
+                        backgroundColor: companyColors[0],
+                        borderColor: companyColors[0],
+                        borderWidth: 1
+                    },
+                    {
+                        label: `${offerData.anodiki.name_el} / ${offerData.anodiki.name_en}`,
+                        data: [offerData.anodiki.optionalRescue, offerData.anodiki.optionalCabin],
+                        backgroundColor: companyColors[1],
+                        borderColor: companyColors[1],
+                        borderWidth: 1
+                    },
+                    {
+                        label: `${offerData.orangelift.name_el} / ${offerData.orangelift.name_en}`,
+                        data: [offerData.orangelift.optionalRescue, offerData.orangelift.optionalCabin],
+                        backgroundColor: companyColors[2],
+                        borderColor: companyColors[2],
+                        borderWidth: 1
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: { y: { beginAtZero: true, ticks: { callback: value => value === null ? 'N/A' : new Intl.NumberFormat('el-GR', { style: 'currency', currency: 'EUR' }).format(value) } } },
+                plugins: { legend: { position: 'top' }, tooltip: commonTooltipOptions('el') }
+            }
+        });
+
+        const maintenanceData = [
+            offerData.aivazoglou.maintenance,
+            offerData.anodiki.maintenance,
+            offerData.orangelift.maintenance
+        ].map(val => val === null ? 0 : val); 
+
+        new Chart(document.getElementById('maintenanceCostChart'), {
+            type: 'bar',
+            data: {
+                labels: companyChartLabels,
+                datasets: [{
+                    label: 'Μηνιαίο Κόστος Συντήρησης / Monthly Maintenance Cost (€)',
+                    data: maintenanceData,
+                    backgroundColor: companyColors,
+                    borderColor: companyColors.map(color => color.replace(')', ', 0.7)').replace('rgb', 'rgba')),
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: { y: { beginAtZero: true, ticks: { callback: value => value === 0 && offerData.orangelift.maintenance === null ? 'Δεν καθορίζεται / Not specified' : new Intl.NumberFormat('el-GR', { style: 'currency', currency: 'EUR' }).format(value) } } },
+                plugins: { legend: { display: false }, tooltip: commonTooltipOptions('el') }
+            }
+        });
+
+        const companyDetailsContainer = document.getElementById('companyDetailsContainer');
+        [offerData.aivazoglou, offerData.anodiki, offerData.orangelift].forEach((company, index) => {
+            const cardHtml = `
+                <div class="card">
+                    <h3 class="text-xl font-semibold text-center mb-4" style="color: ${companyColors[index]};">${company.name_el}<span class="lang-en">${company.name_en}</span></h3>
+                    <p class="text-gray-700 mb-1 text-sm"><strong class="font-medium">Συνολικό Κόστος (με ΦΠΑ):</strong> ${new Intl.NumberFormat('el-GR', { style: 'currency', currency: 'EUR' }).format(company.totalCost)}
+                        <span class="lang-en"><strong class="font-medium">Total Cost (incl. VAT):</strong> ${new Intl.NumberFormat('en-US', { style: 'currency', currency: 'EUR' }).format(company.totalCost)}</span>
+                    </p>
+                    ${company.name_el === "S. ΑΪΒΑΖΟΓΛΟΥ" && company.totalCostNote ? `<p class="text-xs text-gray-500 mb-3">(Μπορεί να μειωθεί σε ${new Intl.NumberFormat('el-GR', { style: 'currency', currency: 'EUR' }).format(company.totalCostNote)} υπό προϋποθέσεις) <span class="lang-en">(Can be reduced to ${new Intl.NumberFormat('en-US', { style: 'currency', currency: 'EUR' }).format(company.totalCostNote)} conditionally)</span></p>` : ''}
+                    <p class="text-gray-700 mb-3 text-sm"><strong class="font-medium">Πίνακας:</strong> ${company.panel_el}
+                        <span class="lang-en"><strong class="font-medium">Panel:</strong> ${company.panel_en}</span>
+                    </p>
+                    <h4 class="text-md font-medium text-gray-800 mt-4 mb-2">Κύριες Παροχές:<span class="lang-en">Key Provisions:</span></h4>
+                    <ul class="list-disc list-inside text-gray-600 space-y-1 text-xs">
+                        ${company.keyInclusions_el.map((item_el, i) => `<li>${item_el}<span class="lang-en">${company.keyInclusions_en[i]}</span></li>`).join('')}
+                    </ul>
+                </div>
+            `;
+            companyDetailsContainer.innerHTML += cardHtml;
+        });
+
+        document.getElementById('timestamp_el').textContent = new Date().toLocaleDateString('el-GR', { day: 'numeric', month: 'long', year: 'numeric' });
+        document.getElementById('timestamp_en').textContent = new Date().toLocaleDateString('en-US', { day: 'numeric', month: 'long', year: 'numeric' });
+    </script>
+</body>
+</html>
